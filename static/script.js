@@ -52,13 +52,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function appendMessage(message, className) {
         const messageElement = document.createElement('div');
         messageElement.className = `message ${className}`;
+        
+        let text = message;
+        let imageUrl = null;
+        
+        // Check if message contains a link
+        const httpIndex = message.indexOf('http');
+        if (httpIndex !== -1) {
+            text = message.substring(0, httpIndex); // Text before the link
+            imageUrl = message.substring(httpIndex); // The link itself
+        }
+    
+        // Add the text content
         const messageContent = document.createElement('div');
         messageContent.className = 'message-content';
-        messageContent.textContent = message;
+        messageContent.textContent = text;
         messageElement.appendChild(messageContent);
+    
+        // If an image URL exists, append the image
+        if (imageUrl) {
+            const imageElement = document.createElement('img');
+            imageElement.src = imageUrl;
+            imageElement.className = 'mimg'; // Add any class for styling
+            messageElement.appendChild(imageElement);
+        }
+    
         chatBox.appendChild(messageElement);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+    
 
     function startTicketBooking() {
         appendMessage('Booking started. Please enter your name:', 'bot-message');

@@ -7,7 +7,7 @@ class PDF(FPDF):
     def header(self):
         # Draw a solid color rectangle at the top for the header
         self.set_fill_color(34, 49, 63)  # Dark blue color for the header
-        self.rect(10, 10, 190, 25, 'F')  # Positioned at (10,10), width 190, height 25
+        self.rect(10, 10, 190, 25, 'F')  # Positioned at (10,10), width 190,height 25
         self.set_font('Arial', 'B', 16)
         self.set_text_color(255, 255, 255)  # White text color
         self.cell(0, 10, 'National Museum of Delhi Ticket', ln=True, align='C')
@@ -27,7 +27,6 @@ class PDF(FPDF):
 def generate_barcode(ticket_number):
     barcode_dir = os.path.join(os.path.dirname(__file__), 'barcodes')
     os.makedirs(barcode_dir, exist_ok=True)
-
     barcode = Code128(ticket_number, writer=ImageWriter())
     barcode_file = os.path.join(barcode_dir, f'barcode_{ticket_number}.png')
     barcode.save(barcode_file.replace('.png', ''))
