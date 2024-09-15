@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
     const bookTicketBtn = document.getElementById('book-ticket-btn');
 
-    let inBookingSession = false;  // Flag to track if the user is in a booking session
+    let inBookingSession = false;  // Flag to track if the user is in a ticket booking session
+    let inSnackBookingSession = false;  // Flag to track if the user is in a snack booking session
 
     sendBtn.addEventListener('click', () => sendMessage());
 
@@ -24,7 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage(userMessage, 'user-message');
             chatInput.value = '';
 
-            const endpoint = inBookingSession ? '/continue-booking' : '/chat';  // Determine endpoint based on session state
+            let endpoint;
+            if (inSnackBookingSession) {
+                endpoint = '/book-snacks';
+            } else if (inBookingSession) {
+                endpoint = '/continue-booking';
+            } else {
+                endpoint = '/chat';  // Default chat endpoint
+            }
 
             // Send message to backend
             fetch(endpoint, {
@@ -37,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 appendMessage(data.response, 'bot-message');
-                // If booking session ends, reset the flag
+                
+                // Check for end of booking session
                 if (data.response.includes('Your tickets have been booked')) {
                     inBookingSession = false;
                 }
@@ -81,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
     
-
+    
     function startTicketBooking() {
         appendMessage('Booking started. Please enter your name:', 'bot-message');
         fetch('/start-booking', {

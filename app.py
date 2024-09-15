@@ -89,41 +89,48 @@ def continue_booking():
 
         elif session['step'] == 'collecting_visit_date':
             session['details']['visit_date'] = user_response
-            booking_details = {
-                "booking_ref": "RANDOM123",  # In production, generate a unique ref
-                "visit_date": session['details']['visit_date'],
-                "visitors": [
-                    {
-                        "name": session['details']['name'],
-                        "ticket_number": "123456",  # Generate a unique ticket number
-                        "ticket_price": 15.00,  # Add dynamic pricing if needed
-                        "category": "Adult"  # Default to Adult; update as needed
-                    }
-                ],
-                "recipient_email": session['details']['email']
-            }
-            
-            # Generate ticket and send email
-            attachment_path = generate_ticket(booking_details)
-            send_email_with_pdf(
-                session['details']['email'],
-                "Your Museum Ticket",
-                "Please find your museum ticket attached.",
-                attachment_path
-            )
+            session['step'] = 'collecting_payment'
+            return jsonify({"response": "Please proceed with the payment and type 'done' once completed. https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"})
 
-            # Insert booking details into MongoDB
-            bookings_collection.insert_one({
-                "booking_ref": booking_details["booking_ref"],
-                "visit_date": booking_details["visit_date"],
-                "visitors": booking_details["visitors"],
-                "recipient_email": booking_details["recipient_email"],
-                "status": "Completed"
-            })
+        elif session['step'] == 'collecting_payment':
+            if user_response.lower() == 'done':
+                booking_details = {
+                    "booking_ref": "RANDOM123",  # In production, generate a unique ref
+                    "visit_date": session['details']['visit_date'],
+                    "visitors": [
+                        {
+                            "name": session['details']['name'],
+                            "ticket_number": "123456",  # Generate a unique ticket number
+                            "ticket_price": 15.00,  # Add dynamic pricing if needed
+                            "category": "Adult"  # Default to Adult; update as needed
+                        }
+                    ],
+                    "recipient_email": session['details']['email']
+                }
 
-            # Reset the session after booking is complete
-            del booking_sessions[session_id]
-            return jsonify({"response": "Your tickets have been booked and sent to your email!"})
+                # Generate ticket and send email
+                attachment_path = generate_ticket(booking_details)
+                send_email_with_pdf(
+                    session['details']['email'],
+                    "Your Museum Ticket",
+                    "Please find your museum ticket attached.",
+                    attachment_path
+                )
+
+                # Insert booking details into MongoDB
+                bookings_collection.insert_one({
+                    "booking_ref": booking_details["booking_ref"],
+                    "visit_date": booking_details["visit_date"],
+                    "visitors": booking_details["visitors"],
+                    "recipient_email": booking_details["recipient_email"],
+                    "status": "Completed"
+                })
+
+                # Reset the session after booking is complete
+                del booking_sessions[session_id]
+                return jsonify({"response": "Your tickets have been booked and sent to your email!"})
+            else:
+                return jsonify({"response": "Please complete the payment and type 'done'."})
 
     # Handle cases where there's no active booking session
     return jsonify({"response": "It seems we're not in a booking session. Please start again."})

@@ -37,7 +37,7 @@
                 "Information about the museum", 
                 "What is the National Museum?"
             ],
-           /*  */ "responses": [
+           "responses": [
                 "The National Museum, New Delhi, began with a blueprint prepared by the Maurice Gwyer Committee in May 1946. It houses over 200,000 objects, covering a time span of over five thousand years of Indian cultural heritage. https://www.jaypeehotels.com/blog/wp-content/uploads/2023/03/blog-5.jpg"
             ]
         },
@@ -147,6 +147,31 @@
                 "Sure thing! I'm on it.",
                 "Alright! Just a moment while I find that for you."
             ]
+        },
+        {
+            "tag": "museum_rajasthan",
+            "patterns": [
+                "Top museum in Rajasthan",
+                "Museum in Rajasthan",
+                "Museums in Rajasthan",
+                "Best museum Rajasthan",
+                "Rajasthan museum"
+            ],
+            "responses": [
+                "One of the notable museums in Rajasthan is the Albert Hall Museum in Jaipur. It showcases a diverse collection of artifacts, including sculptures, paintings, and textiles, and is known for its impressive architecture and historical significance."
+            ]
+        },
+        {
+            "tag": "albert_hall_museum",
+            "patterns": [
+                "Albert Hall Museum",
+                "Albert Hall Museum Jaipur",
+                "Albert Hall Museum Rajasthan"
+            ],
+            "responses": [
+                "The Albert Hall Museum, located in Jaipur, Rajasthan, is a renowned museum known for its stunning architecture and extensive collection of art and artifacts. It features exhibits ranging from ancient sculptures to textiles and is a must-visit for anyone interested in the rich cultural heritage of Rajasthan."
+            ]
         }
+        
     ]
 }
