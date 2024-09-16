@@ -1,177 +1,118 @@
 {
-    "intents": [
-        {
-            "tag": "greeting",
-            "patterns": ["Hi", "Hello", "How are you?", "Hey", "What's up?", "Namaste", "Greetings"],
-            "responses": [
-                "Namaste 🙏! I'm Musebot, your guide to the National Museum, Delhi. How can I assist you today?",
-                "Hello and welcome! Musebot here to help you explore the National Museum. What would you like to do?",
-                "Hi! Musebot at your service. I'm here to assist you with anything related to the National Museum, Delhi.",
-                "Greetings! I'm Musebot 🤖, your virtual assistant for the National Museum. How may I help you today?"
-            ]
-        },
-        {
-            "tag": "goodbye",
-            "patterns": ["Bye", "See you later", "Goodbye", "Thanks, bye"],
-            "responses": [
-                "Goodbye!", 
-                "See you later!", 
-                "Have a nice day!"
-            ]
-        },
-        {
-            "tag": "thanks",
-            "patterns": ["Thanks", "Thank you", "That's helpful", "Thank you so much"],
-            "responses": [
-                "You're welcome!", 
-                "Happy to help!", 
-                "Anytime!"
-            ]
-        },
-        {
-            "tag": "museum_info",
-            "patterns": [
-                "Tell me about the museum", 
-                "What can I see here?", 
-                "Museum details", 
-                "Information about the museum", 
-                "What is the National Museum?"
-            ],
-           "responses": [
-                "The National Museum, New Delhi, began with a blueprint prepared by the Maurice Gwyer Committee in May 1946. It houses over 200,000 objects, covering a time span of over five thousand years of Indian cultural heritage. https://www.jaypeehotels.com/blog/wp-content/uploads/2023/03/blog-5.jpg"
-            ]
-        },
-        {
-            "tag": "book_ticket",
-            "patterns": [
-                "I want to book a ticket", 
-                "Book a ticket", 
-                "Get tickets", 
-                "How to book tickets?", 
-                "Ticket booking"
-            ],
-            "responses": [
-                "To book tickets for the National Museum, you can pre-book online via our official website or contact us directly. Pre-booking is required for school visits and can be done by emailing yuvasaathi.nm@gmail.com at least 7 days in advance."
-            ]
-        },
-        {
-            "tag": "snacks_options",
-            "patterns": [
-                "What snacks are available?", 
-                "Snacks options", 
-                "Food at the museum", 
-                "Can I buy snacks at the museum?"
-            ],
-            "responses": [
-                "The National Museum offers a variety of snacks that can be pre-booked along with your visit. Available snacks include Sandwiches (Veg/Non-Veg), Samosas, Fresh Fruit Juice, Biscuits and Cookies, and Tea and Coffee."
-            ]
-        },
-        {
-            "tag": "yuva_saathi_programme",
-            "patterns": [
-                "Tell me about the Yuva Saathi Programme", 
-                "What is the Yuva Saathi Programme?", 
-                "Yuva Saathi tours", 
-                "Free guided tours for students"
-            ],
-            "responses": [
-                "The Yuva Saathi Programme offers free guided tours for school students, running on all working days. Tours must be pre-booked at least 7 days in advance and are available in morning and afternoon slots. Teachers or escorts need to pay a nominal fee of Rs. 20 per person."
-            ]
-        },
-        {
-            "tag": "volunteer_guide_programme",
-            "patterns": [
-                "Tell me about the Volunteer Guide Programme", 
-                "Volunteer tours", 
-                "Free guide tours", 
-                "Path Pradarshak Volunteer Guide Programme"
-            ],
-            "responses": [
-                "The Path Pradarshak Volunteer Guide Programme provides free 90-minute tours showcasing highlights of the museum. Available on weekdays and weekends, these tours are led by trained volunteers and cover around 30 notable objects and galleries."
-            ]
-        },
-        {
-            "tag": "museum_location",
-            "patterns": [
-                "Where is the museum located?", 
-                "Museum address", 
-                "Location of the National Museum", 
-                "How do I get to the museum?"
-            ],
-            "responses": [
-                "The National Museum is located at Janpath, New Delhi - 110011. It is easily accessible via the Central Secretariat and Udyog Bhawan metro stations. Nearby bus stops include National Museum and Nirman Bhawan with routes 505, 521, 522, and others servicing the area."
-            ]
-        },
-        {
-            "tag": "museum_timings",
-            "patterns": [
-                "What are the museum timings?", 
-                "When is the museum open?", 
-                "Museum opening hours", 
-                "What time does the museum close?"
-            ],
-            "responses": [
-                "The National Museum is open Tuesday to Sunday from 10:00 AM to 6:00 PM, and it is closed on Mondays and National Holidays."
-            ]
-        },
-        {
-            "tag": "ticket_information",
-            "patterns": [
-                "How much are the tickets?", 
-                "Ticket prices", 
-                "What is the entry fee?", 
-                "Cost of tickets"
-            ],
-            "responses": [
-                "The National Museum offers ticket booking options for various categories: Adults: Rs. 20 per person, Kids (up to class 12): Free with a valid school ID, Foreign Nationals: Rs. 650 (including an audio guide)."
-            ]
-        },
-        {
-            "tag": "contact_information",
-            "patterns": [
-                "How can I contact the museum?", 
-                "Contact details", 
-                "Museum contact information", 
-                "Phone number of the National Museum"
-            ],
-            "responses": [
-                "For booking tours or general inquiries, you can contact Yuva Saathi Coordination at yuvasaathi.nm@gmail.com or call 011 23019272, ext. 237. For any specific requests, such as wheelchair accessibility or group bookings, please reach out to the museum's main contact points."
-            ]
-        },
-        {
-            "tag": "ok_responses",
-            "patterns": ["Ok", "Okay", "Got it", "Sure", "Alright"],
-            "responses": [
-                "Got it! Let me help you with that.",
-                "Okay! Let me get that information for you.",
-                "Sure thing! I'm on it.",
-                "Alright! Just a moment while I find that for you."
-            ]
-        },
-        {
-            "tag": "museum_rajasthan",
-            "patterns": [
-                "Top museum in Rajasthan",
-                "Museum in Rajasthan",
-                "Museums in Rajasthan",
-                "Best museum Rajasthan",
-                "Rajasthan museum"
-            ],
-            "responses": [
-                "One of the notable museums in Rajasthan is the Albert Hall Museum in Jaipur. It showcases a diverse collection of artifacts, including sculptures, paintings, and textiles, and is known for its impressive architecture and historical significance. https://img.veenaworld.com/wp-content/uploads/2021/07/Albert-Hall-Museum-Jaipur-Ticket-Price-History-and-Timings.jpg"
-            ]
-        },
-        {
-            "tag": "albert_hall_museum",
-            "patterns": [
-                "Albert Hall Museum",
-                "Albert Hall Museum Jaipur",
-                "Albert Hall Museum Rajasthan"
-            ],
-            "responses": [
-                "The Albert Hall Museum, located in Jaipur, Rajasthan, is a renowned museum known for its stunning architecture and extensive collection of art and artifacts. It features exhibits ranging from ancient sculptures to textiles and is a must-visit for anyone interested in the rich cultural heritage of Rajasthan. https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj1YoYUq_H9MG4XN2vk8HaowqQ-AtMzl7vSQ&s"
-            ]
-        }
-        
-    ]
+  "intents": [
+    {
+      "tag": "greeting_english",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "How are you?",
+        "Hey",
+        "What's up?",
+        "Greetings"
+      ],
+      "responses": [
+        "Hello! I'm Musebot, here to assist you with exploring various museums in India. How can I help you today?",
+        "Hi there! Ready to explore some amazing museums? Let me know how I can help!",
+        "Hey! Musebot at your service. Need information or want to book tickets? I'm here to help!"
+      ]
+    },
+    {
+      "tag": "greeting_hindi",
+      "patterns": [
+        "नमस्ते",
+        "नमस्कार",
+        "कैसे हो?",
+        "हैलो",
+        "क्या हाल है?"
+      ],
+      "responses": [
+        "नमस्ते 🙏! मैं म्यूज़बॉट हूँ, भारत के संग्रहालयों की गाइड। मैं आपकी किस प्रकार से सहायता कर सकता हूँ?",
+        "नमस्कार! म्यूज़बॉट यहाँ है आपकी भारत के संग्रहालयों की खोज में मदद करने के लिए। आप क्या करना चाहेंगे?",
+        "नमस्ते! म्यूज़बॉट आपकी सेवा में है। क्या आप संग्रहालय के बारे में जानकारी चाहते हैं या टिकट बुक करना चाहेंगे?"
+      ]
+    },
+    {
+      "tag": "greeting_hinglish",
+      "patterns": [
+        "aur",
+        "kaise ho",
+        "kya chal raha hai",
+        "hello ji"
+      ],
+      "responses": [
+        "Hi there! Ready to explore some amazing museums? Let me know how I can help!",
+        "Hey! Musebot at your service. Need information or want to book tickets? I'm here to help!",
+        "Namaste! I'm Musebot, ready to guide you through the museums of India. How can I assist?"
+      ]
+    },
+    {
+      "tag": "museum_info_delhi_english",
+      "patterns": [
+        "Tell me about the National Museum in Delhi",
+        "Delhi museum details",
+        "Information about the National Museum"
+      ],
+      "responses": [
+        "The National Museum, New Delhi, began with a blueprint prepared by the Maurice Gwyer Committee in May 1946. It houses over 200,000 objects, covering a time span of over five thousand years of Indian cultural heritage.",
+        "The National Museum in Delhi is one of the largest museums in India, showcasing a wide range of artifacts from India's rich cultural history."
+      ]
+    },
+    {
+      "tag": "museum_info_delhi_hindi",
+      "patterns": [
+        "नेशनल म्यूज़ियम के बारे में बताओ",
+        "दिल्ली के म्यूज़ियम की जानकारी"
+      ],
+      "responses": [
+        "नेशनल म्यूज़ियम, नई दिल्ली, मई 1946 में मोरिस ग्वायर समिति द्वारा तैयार की गई एक ब्लूप्रिंट के साथ शुरू हुआ। इसमें 200,000 से अधिक वस्तुएँ हैं, जो भारतीय सांस्कृतिक धरोहर के पांच हजार वर्षों से अधिक के समय को कवर करती हैं।",
+        "नेशनल म्यूज़ियम, दिल्ली, भारत का सबसे बड़ा संग्रहालय है जिसमें भारतीय सांस्कृतिक इतिहास के विभिन्न पहलुओं की प्रदर्शनी है।"
+      ]
+    },
+    {
+      "tag": "museum_info_kolkata_english",
+      "patterns": [
+        "Tell me about the Indian Museum in Kolkata",
+        "Kolkata museum details",
+        "Information about the Indian Museum"
+      ],
+      "responses": [
+        "The Indian Museum in Kolkata, established in 1814, is the oldest and the largest multipurpose museum not only in the Indian subcontinent but also in the Asia-Pacific region. It houses rare collections of antiques, armor, fossils, and Mughal paintings.",
+        "The Indian Museum in Kolkata is renowned for its extensive collection of artifacts and its role in preserving the cultural heritage of India."
+      ]
+    },
+    {
+      "tag": "museum_info_kolkata_hindi",
+      "patterns": [
+        "भारतीय संग्रहालय के बारे में बताओ",
+        "कोलकाता के म्यूज़ियम की जानकारी"
+      ],
+      "responses": [
+        "भारतीय संग्रहालय, कोलकाता, 1814 में स्थापित हुआ था और यह न केवल भारतीय उपमहाद्वीप का बल्कि एशिया-प्रशांत क्षेत्र का सबसे पुराना और सबसे बड़ा बहुउद्देशीय संग्रहालय है। इसमें दुर्लभ प्राचीन वस्तुएँ, कवच, जीवाश्म और मुगल चित्रकला संग्रह शामिल हैं।",
+        "भारतीय संग्रहालय, कोलकाता, अपनी विस्तृत वस्तुओं और भारत की सांस्कृतिक धरोहर को संजोने की भूमिका के लिए प्रसिद्ध है।"
+      ]
+    },
+    {
+      "tag": "museum_info_mumbai_english",
+      "patterns": [
+        "Tell me about the Chhatrapati Shivaji Maharaj Vastu Sangrahalaya in Mumbai",
+        "Mumbai museum details",
+        "Information about the museum in Mumbai"
+      ],
+      "responses": [
+        "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya, formerly known as the Prince of Wales Museum, is located in Mumbai. It showcases the art, archaeology, and natural history of India with a particular focus on the history of Maharashtra.",
+        "This museum in Mumbai is a treasure trove of artifacts and collections that reflect the diverse history of Maharashtra and India."
+      ]
+    },
+    {
+      "tag": "museum_info_mumbai_hindi",
+      "patterns": [
+        "मुंबई के संग्रहालय के बारे में बताओ",
+        "छत्रपति शिवाजी महाराज वास्तु संग्रहालय की जानकारी"
+      ],
+      "responses": [
+        "छत्रपति शिवाजी महाराज वास्तु संग्रहालय, जिसे पहले प्रिंस ऑफ वेल्स म्यूज़ियम के नाम से जाना जाता था, मुंबई में स्थित है। यह कला, पुरातत्व और प्राकृतिक इतिहास को प्रदर्शित करता है, विशेष रूप से महाराष्ट्र के इतिहास पर ध्यान केंद्रित करता है।",
+        "मुंबई का यह संग्रहालय विविध भारतीय और विशेष रूप से महाराष्ट्र के इतिहास को संजोए हुए है।"
+      ]
+    }
+  ]
 }

@@ -1,26 +1,203 @@
 body {
-    background-color: #f4f4f9;
+    background-color: #1c1c2b; /* Dark solid background color */
     font-family: 'Georgia', serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
     position: relative;
 }
 
+/* Navigation Bar */
+.navbar {
+    background-color: #2e4057;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a:hover {
+    color: #d4af37; /* Gold color on hover */
+}
+
+/* Main Content */
+.main-content {
+    text-align: center;
+    padding: 50px 20px;
+    color: #e0e0e0;
+}
+
+.main-content h1 {
+    font-size: 36px;
+    color: #d4af37;
+}
+
+.main-content p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+/* Featured Section */
+.featured-section {
+    margin-top: 30px;
+    color: #d4af37;
+}
+
+.featured-section h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.featured-section p {
+    font-size: 16px;
+}
+
+/* Museum Cards Section */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: #2e4057;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+    color: #ffffff;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.card h3 {
+    margin-top: 15px;
+    color: #d4af37;
+}
+
+.card p {
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Call to Action Section */
+.call-to-action {
+    background-color: #2e4057;
+    color: #ffffff;
+    padding: 30px 20px;
+    border-radius: 10px;
+    margin-top: 50px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.call-to-action h2 {
+    color: #d4af37;
+    margin-bottom: 15px;
+}
+
+.call-to-action p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.cta-button {
+    background-color: #d4af37;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #c19e2c;
+    transform: scale(1.05);
+}
+
+/* Chatbot Icon */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+.chat-icon img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chat-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Text below the chatbot icon */
+.chat-icon-text {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #d4af37; /* Gold color to match the theme */
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+/* Chat Container */
 .chat-container {
-    width: 400px;
+    width: 450px;
     height: 650px;
     background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 50px; /* More rounded for an oval shape */
+    border-radius: 50px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     backdrop-filter: blur(5px);
-    border: 3px solid #d4af37; /* Gold border */
+    border: 3px solid #d4af37;
     padding: 10px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
 }
 
 .chat-header {
@@ -31,18 +208,41 @@ body {
     font-weight: bold;
     letter-spacing: 1.5px;
     border-bottom: 2px solid #d4af37;
-    border-top-left-radius: 40px; /* Match the container’s rounding */
+    border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     font-size: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Keep header on top */
 }
 
+/* Chat Box with scrolling area */
 .chat-box {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
+    overflow-x: hidden;
     background-color: #eef1f7;
-    border-bottom-left-radius: 40px; /* Match the container’s rounding */
+    border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #eef1f7;
+    max-height: 380px; /* Adjusted height to prevent overlap */
+    margin-bottom: 60px; /* Ensures space for button */
+}
+
+/* For Chrome, Edge, and Safari */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #d4af37;
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: #eef1f7;
 }
 
 .message {
@@ -52,7 +252,12 @@ body {
     border-radius: 10px;
     max-width: 75%;
     word-wrap: break-word;
+    overflow-wrap: break-word;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-message, .bot-message {
+    max-width: 75%;
 }
 
 .user-message {
@@ -65,16 +270,11 @@ body {
     background-color: #f4ecd8;
     align-self: flex-start;
     border-left: 4px solid #d4af37;
-    display: flex;
-    flex-direction: column;
-}
-.mimg{
-    object-fit: contain;
-    margin-top: 1rem;
 }
 
 .message-content {
     display: inline-block;
+    max-width: 100%;
 }
 
 .chat-input-container {
@@ -82,8 +282,11 @@ body {
     padding: 10px;
     background-color: #eaeaea;
     border-top: 1px solid #ddd;
-    border-bottom-left-radius: 40px; /* Match the container’s rounding */
+    border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
 }
 
 #chat-input {
@@ -122,33 +325,36 @@ body {
 }
 
 .book-ticket-btn {
-    background-color: #d4af37; /* Gold color for button */
+    background-color: #d4af37;
     color: white;
     border: none;
     padding: 12px 20px;
     font-size: 16px;
-    margin: 10px;
+    margin-bottom: 10px; /* Added margin to move button above the input box */
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: absolute; /* Changed to absolute positioning */
+    bottom: 60px; /* Corrected placement to be above input */
+    left: 20px; /* Ensure it stays within the chat container */
+    width: calc(100% - 40px); /* Adjust width to fit nicely */
+    z-index: 3; /* Keep button on top */
 }
 
 .book-ticket-btn:hover {
-    background-color: #c19e2c; /* Slightly darker gold on hover */
+    background-color: #c19e2c;
     transform: scale(1.05);
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Footer styling for developed by text */
+/* Footer styling */
 .footer {
     position: absolute;
     bottom: 20px;
-    right: 20px; /* Positioned to the right */
+    right: 20px;
     color: #a0a0a0;
-    font-size: 18px; /* Increased font size for visibility */
+    font-size: 18px;
     font-style: italic;
-    font-weight: bold; /* Made bold for emphasis */
+    font-weight: bold;
 }
-
-

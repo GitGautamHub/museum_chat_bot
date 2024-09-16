@@ -4,14 +4,100 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MuseBOT - National Museum Assistant</title>
+    <title>MuseumSEVA - Home</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="chat-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Museum Info</a></li>
+            <li><a href="#">Events & News</a></li>
+            <li><a href="#">Tickets</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Explore and Book Tickets for Museums Across India</h1>
+        <p>Explore and book your tickets easily through our chatbot, skipping the long queues. Enjoy a seamless booking experience and dive into the rich heritage of India's past!</p>
+
+        <!-- Featured Section -->
+        <div class="featured-section">
+            <h2>Featured Museums</h2>
+            <p>Check out some of the most popular museums across India and start your journey into the past.</p>
+        </div>
+
+        <!-- Museum Cards Section -->
+        <div class="cards-container">
+            <!-- Example Cards -->
+            <div class="card">
+                <img src="/static/images/national_museum.jpg" alt="National Museum">
+                <h3>National Museum, Delhi</h3>
+                <p>Discover the vast collection of Indian art, culture, and heritage preserved at the National Museum in Delhi.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/img1.jpg" alt="Chhatrapati Shivaji Maharaj Museum">
+                <h3>Chhatrapati Shivaji Maharaj Vastu Sangrahalaya, Mumbai</h3>
+                <p>Explore Mumbai's premier museum showcasing ancient artifacts, art, and relics from India's rich history.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/Indian_Museum,_Courtyard,_Kolkata,_India.jpg" alt="Indian Museum">
+                <h3>Indian Museum, Kolkata</h3>
+                <p>Visit the oldest museum in India and one of the most comprehensive museums in Asia, located in Kolkata.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/img2.jpg" alt="Rail Museum">
+                <h3>Rail Museum, New Delhi</h3>
+                <p>Step into the history of Indian Railways and explore the collection of vintage trains and rail artifacts.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/albert.jpg" alt="Albert Hall Museum">
+                <h3>Albert Hall Museum, Jaipur</h3>
+                <p>The oldest museum in Rajasthan, known for its Indo-Saracenic architecture and extensive collection of artifacts.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/salar_jung.jpg" alt="Salar Jung Museum">
+                <h3>Salar Jung Museum, Hyderabad</h3>
+                <p>Famous for its rare artifacts and art collections from various civilizations around the world.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/egypt.jpg" alt="Egyptian Gallery">
+                <h3>Egyptian Gallery, Indian Museum</h3>
+                <p>Explore ancient Egyptian artifacts, including mummies, in the Indian Museum's Egyptian Gallery in Kolkata.</p>
+            </div>
+            <div class="card">
+                <img src="/static/images/bhau.jpg" alt="Dr. Bhau Daji Lad Museum">
+                <h3>Dr. Bhau Daji Lad Museum, Mumbai</h3>
+                <p>Mumbai's oldest museum with collections highlighting the city’s culture and industrial past.</p>
+            </div>
+            <!-- Add more cards as needed -->
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="call-to-action">
+            <h2>Book Your Tickets Now!</h2>
+            <p>Don’t miss out on visiting these amazing museums. Click the button below to get started with your ticket booking.</p>
+            <a href="#" class="cta-button">Book Tickets</a>
+        </div>
+    </div>
+
+    <!-- Footer text -->
+    <div class="footer">Developed by Team museumSEVA</div>
+
+    <!-- Floating Chatbot Icon -->
+    <div class="chat-icon" onclick="toggleChat()">
+        <img src="/static/images/chat-icon.jpg" alt="Chatbot Icon">
+        <p class="chat-icon-text">Book Tickets Here !! </p> <!-- Added text below the icon -->
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chat-container" id="chat-container" style="display: none;">
         <div class="chat-header">
-            <h2>MuseBOT</h2>
-            <p>Your Virtual Assistant for the National Museum, Delhi</p>
+            <h2>Dwarpal: Your Gateway to India's Museums</h2>
+            <p>Dwarpal helps you easily book tickets for India's top museums. Explore history with just a few clicks!</p>
         </div>
         <div class="chat-box" id="chat-box"></div>
 
@@ -24,9 +110,15 @@
         </div>
     </div>
 
-    <!-- Footer text -->
-    <div class="footer">Developed by Team museumSEVA</div>
-
     <script src="/static/script.js"></script>
+    <script>
+        function toggleChat() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+            if (chatContainer.style.display === 'flex') {
+                document.getElementById('chat-input').focus();
+            }
+        }
+    </script>
 </body>
 </html>

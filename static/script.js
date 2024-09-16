@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
     const bookTicketBtn = document.getElementById('book-ticket-btn');
 
-    let inBookingSession = false;  // Flag to track if the user is in a ticket booking session
-    let inSnackBookingSession = false;  // Flag to track if the user is in a snack booking session
+    let inBookingSession = false;  // Flag to track if the user is in a booking session
 
     sendBtn.addEventListener('click', () => sendMessage());
 
@@ -25,14 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage(userMessage, 'user-message');
             chatInput.value = '';
 
-            let endpoint;
-            if (inSnackBookingSession) {
-                endpoint = '/book-snacks';
-            } else if (inBookingSession) {
-                endpoint = '/continue-booking';
-            } else {
-                endpoint = '/chat';  // Default chat endpoint
-            }
+            const endpoint = inBookingSession ? '/continue-booking' : '/chat';  // Determine endpoint based on session state
 
             // Send message to backend
             fetch(endpoint, {
@@ -45,8 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 appendMessage(data.response, 'bot-message');
-                
-                // Check for end of booking session
+                // If booking session ends, reset the flag
                 if (data.response.includes('Your tickets have been booked')) {
                     inBookingSession = false;
                 }
@@ -61,38 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function appendMessage(message, className) {
         const messageElement = document.createElement('div');
         messageElement.className = `message ${className}`;
-        
-        let text = message;
-        let imageUrl = null;
-        
-        // Check if message contains a link
-        const httpIndex = message.indexOf('http');
-        if (httpIndex !== -1) {
-            text = message.substring(0, httpIndex); // Text before the link
-            imageUrl = message.substring(httpIndex); // The link itself
-        }
-    
-        // Add the text content
         const messageContent = document.createElement('div');
         messageContent.className = 'message-content';
-        messageContent.textContent = text;
+        messageContent.textContent = message;
         messageElement.appendChild(messageContent);
-    
-        // If an image URL exists, append the image
-        if (imageUrl) {
-            const imageElement = document.createElement('img');
-            imageElement.src = imageUrl;
-            imageElement.className = 'mimg'; // Add any class for styling
-            messageElement.appendChild(imageElement);
-        }
-    
         chatBox.appendChild(messageElement);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-    
-    
+
     function startTicketBooking() {
-        appendMessage('Booking started. Please enter your name:', 'bot-message');
+        appendMessage('Booking started.', 'bot-message');
         fetch('/start-booking', {
             method: 'POST',
             headers: {
@@ -109,4 +78,23 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage('Sorry, something went wrong. Please try again.', 'bot-message');
         });
     }
+
+
 });
+    // Example JavaScript to display image in the chat
+    function displayResponse(data) {
+        const chatContainer = document.getElementById('chat-container'); // Your chat container ID
+        const responseMessage = document.createElement('div');
+        responseMessage.innerHTML = `<p>${data.response}</p>`;
+    
+        // Check if there is an image URL in the response
+        if (data.image_url) {
+            const img = document.createElement('img');
+            img.src = data.image_url;
+            img.alt = 'Payment Instructions Image';  // Add appropriate alt text
+            img.style.maxWidth = '100%';  // Optional styling
+            responseMessage.appendChild(img);
+        }
+    
+        chatContainer.appendChild(responseMessage);
+    }
