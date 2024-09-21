@@ -8,6 +8,6 @@ MONGO_URI = "mongodb://localhost:27017"
 client = MongoClient(MONGO_URI)
 
 # Connect to the database (create one if it doesn't exist)
-db = client.museum_ticketing
+db = client['museum_ticket_bot']
 
 print("Connected to MongoDB successfully.")

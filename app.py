@@ -3,20 +3,28 @@ from chatbot.nlp_utils import predict_class, get_response
 from tickets.generate_ticket import generate_ticket
 from tickets.send_email import send_email_with_pdf
 from pymongo import MongoClient
+from database.models import add_user, find_user_by_email, create_ticket, store_snack_booking, get_show_timings
 import json
 import os
 from datetime import datetime
+from langdetect import detect
+import random
+import string
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
-# Load intents file
+# Load intents file for fallback response
 try:
-    with open('chatbot/intents.json', encoding='utf-8') as file:
-        intents = json.load(file)
-    print("[INFO] Intents loaded in Flask app.")
+    with open('chatbot/intents/english/intents_english.json', encoding='utf-8') as file:
+        default_intents = json.load(file)
+    print("[INFO] Default intents loaded in Flask app.")
 except Exception as e:
-    print(f"[ERROR] Error loading intents.json in Flask app: {e}")
-    intents = []
+    print(f"[ERROR] Error loading default intents.json in Flask app: {e}")
+    default_intents = []
 
 # In-memory booking session storage
 booking_sessions = {}
@@ -30,11 +38,14 @@ try:
 except Exception as e:
     print(f"[ERROR] Error connecting to MongoDB: {e}")
 
-def calculate_ticket_price(adult_count, child_count, senior_count, foreigner_count, visit_date):
-    """Calculate the total price of tickets based on the counts for each category and date type."""
+def calculate_ticket_price(adult_count, child_count, senior_count, foreigner_count, visit_date, wheelchair, snacks, tour_guide):
+    """Calculate the total price of tickets based on the counts for each category and date type, including additional services."""
     # Prices for weekdays and weekends
     weekday_prices = {'adult': 15.00, 'child': 10.00, 'senior': 12.00, 'foreigner': 25.00}
     weekend_prices = {'adult': 20.00, 'child': 15.00, 'senior': 18.00, 'foreigner': 30.00}
+
+    # Additional service prices
+    service_prices = {'wheelchair': 5.00, 'snacks': 10.00, 'tour_guide': 20.00}
     
     # Check if the selected date is a weekend
     visit_datetime = datetime.strptime(visit_date, '%Y-%m-%d')
@@ -45,15 +56,41 @@ def calculate_ticket_price(adult_count, child_count, senior_count, foreigner_cou
     
     total_price = (adult_count * prices['adult']) + (child_count * prices['child']) + \
                   (senior_count * prices['senior']) + (foreigner_count * prices['foreigner'])
+
+    # Adding service prices if selected
+    if wheelchair:
+        total_price += service_prices['wheelchair']
+    if snacks:
+        total_price += service_prices['snacks']
+    if tour_guide:
+        total_price += service_prices['tour_guide']
+
     return total_price
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+LANGUAGE_CODE_MAP = {
+    'en': 'english',
+    'hi': 'hindi',
+    'bn': 'bengali',
+    'mr': 'marathi',
+    # Add other language mappings as needed
+}
+
+def detect_language(text):
+    try:
+        detected_lang = detect(text)
+        # Map the detected language code to your supported language code
+        return LANGUAGE_CODE_MAP.get(detected_lang, "english")  # Default to English if unsupported language is detected
+    except:
+        return "english"  # Default to English if language detection fails
+
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.json.get("message")
+    language_code = request.json.get("language_code", None)  # None by default to trigger language detection
     session_id = request.remote_addr
 
     # Check if the user is in a booking session
@@ -65,8 +102,13 @@ def chat():
         if not user_message:
             return jsonify({"response": "Sorry, I didn't get that. Could you please repeat?"})
 
-        intents_prediction = predict_class(user_message)
-        response = get_response(intents_prediction, intents)
+        # If language_code is not provided, detect language dynamically
+        if not language_code:
+            language_code = detect_language(user_message)
+            print(f"[INFO] Detected Language: {language_code}")
+
+        intents_prediction = predict_class(user_message, language_code)
+        response = get_response(intents_prediction, language_code)
 
         return jsonify({"response": response})
     except Exception as e:
@@ -78,7 +120,12 @@ def start_booking():
     session_id = request.remote_addr  # Use IP as session ID (simple implementation)
     booking_sessions[session_id] = {
         'step': 'selecting_state',
-        'details': {}
+        'details': {
+            'wheelchair': False,
+            'snacks': False,
+            'tour_guide': False,
+            'snacks_order_id': None
+        }
     }
     
     # Prompt the user to select a state
@@ -94,12 +141,17 @@ def start_booking():
     return jsonify({"response": state_options})
 
 @app.route('/continue-booking', methods=['POST'])
+def continue_booking_route():
+    return continue_booking()
+
 def continue_booking():
     session_id = request.remote_addr
-    user_response = request.json.get("message")
+    user_response = request.json.get("message").strip()  # Use strip() to handle any whitespace issues
+    logging.debug(f"Session ID: {session_id}, User Response: {user_response}")
 
     if session_id in booking_sessions:
         session = booking_sessions[session_id]
+        logging.debug(f"Session Step: {session['step']}")
 
         # Step 1: Selecting a state
         if session['step'] == 'selecting_state':
@@ -112,9 +164,10 @@ def continue_booking():
             }
 
             selected_state = state_map.get(user_response)
+            logging.debug(f"Selected State: {selected_state}")
             if not selected_state:
                 return jsonify({"response": "Please enter a valid number to select a state."})
-            
+
             session['details']['state'] = selected_state
             session['step'] = 'selecting_city'
 
@@ -143,7 +196,7 @@ def continue_booking():
             selected_city = city_map[state].get(user_response)
             if not selected_city:
                 return jsonify({"response": "Please enter a valid number to select a city."})
-            
+
             session['details']['city'] = selected_city
             session['step'] = 'selecting_museum'
 
@@ -192,7 +245,7 @@ def continue_booking():
             selected_museum = museum_map[city].get(user_response)
             if not selected_museum:
                 return jsonify({"response": "Please enter a valid number to select a museum."})
-            
+
             session['details']['museum'] = selected_museum
             session['step'] = 'selecting_date'
             return jsonify({
@@ -257,38 +310,128 @@ def continue_booking():
                 senior_count = session['details']['senior_count']
                 foreigner_count = session['details']['foreigner_count']
                 visit_date = session['details']['visit_date']
-                total_price = calculate_ticket_price(adult_count, child_count, senior_count, foreigner_count, visit_date)
-                session['details']['total_price'] = total_price
+                session['details']['total_price'] = calculate_ticket_price(
+                        adult_count=adult_count,
+                        child_count=child_count,
+                        senior_count=senior_count,
+                        foreigner_count=foreigner_count,
+                        visit_date=visit_date,
+                        wheelchair=session['details'].get('wheelchair', False),
+                        tour_guide=session['details'].get('tour_guide', False),
+                        snacks=False  # Snacks option removed
+                    )
 
-                session['step'] = 'collecting_payment'
-
-                # Provide payment instructions
-                # Provide payment instructions with an image
-                response_message = (
-                    f"🎟️ The total price is ₹ {total_price:.2f}.\nPlease make the payment using the given 💳 UPI id:---"
-                    "'museum@upi'\n\n"
-                    "🎟️ After completing the payment, please enter your UTR number below. 📧"
-                )
-
-                # URL for the image to render
-                image_url = url_for('static', filename='images/albert.jpg')  # Ensure the filename matches exactly
-
-                # Send the response with the image URL
+                session['step'] = 'selecting_services'
                 return jsonify({
-                    "response": response_message,
-                    "image_url": image_url
+                    "response": f"🎟️ The total price is ₹ {session['details']['total_price']:.2f}.\nWould you like to add any additional services?\n\n"
+                                "1. Wheelchair Assistance\n"
+                                "2. Tour Guide\n\n"
+                                "Please enter the number corresponding to your choice or 0 to skip."
                 })
 
             except ValueError:
                 return jsonify({"response": "Please enter a valid number for foreigner tickets."})
 
+        # Step 5: Selecting additional services
+        elif session['step'] == 'selecting_services':
+            services_map = {
+                '1': 'Wheelchair Assistance',
+                '2': 'Tour Guide',
+                '0': 'No additional services'
+            }
+
+            selected_service = services_map.get(user_response)
+            if not selected_service:
+                return jsonify({"response": "Please enter a valid number to select a service."})
+
+            if selected_service == 'Wheelchair Assistance':
+                session['details']['wheelchair'] = True
+                session['step'] = 'selecting_additional_service'  # Skip confirmation step for a smoother experience
+                return jsonify({
+                    "response": "Wheelchair Assistance added. Would you like to add more services?\n\n"
+                                "1. Tour Guide\n\n"
+                                "Enter the number corresponding to your choice or 0 to skip."
+                })
+
+            elif selected_service == 'Tour Guide':
+                session['details']['tour_guide'] = True
+                session['step'] = 'selecting_additional_service'
+                return jsonify({
+                    "response": "Tour Guide added. Would you like to add more services?\n\n"
+                                "1. Wheelchair Assistance\n\n"
+                                "Enter the number corresponding to your choice or 0 to skip."
+                })
+
+            elif selected_service == 'No additional services':
+                session['step'] = 'collecting_payment'
+                return jsonify({
+                    "response": f"🎟️ The total price is ₹ {session['details']['total_price']:.2f}.\nPlease make the payment using the given 💳 UPI id: 'museum@upi'\n\n"
+                                "🎟️ After completing the payment, please enter your UTR number below. 📧"
+                })
+
+        # Step 6: Finalizing additional services or skipping
+        # Step 7: Finalizing additional services or skipping
+        elif session['step'] == 'selecting_additional_service':
+            additional_services_map = {
+                '1': 'Tour Guide',
+                '0': 'No additional services'
+            }
+
+            additional_service = additional_services_map.get(user_response)
+            if not additional_service:
+                return jsonify({"response": "Please enter a valid number to select a service."})
+
+            if additional_service == 'Tour Guide':
+                if not session['details'].get('tour_guide'):
+                    session['details']['tour_guide'] = True  # Set tour guide service
+                session['step'] = 'selecting_additional_service'  # Remain on the same step to add more services
+                return jsonify({
+                    "response": "Tour Guide added. Would you like to add more services?\n\n"
+                                "1. Wheelchair Assistance\n"
+                                "Enter the number corresponding to your choice or 0 to skip."
+                })
+
+            elif additional_service == 'No additional services':
+                session['step'] = 'collecting_payment'
+                return jsonify({
+                    "response": f"🎟️ The total price is ₹ {session['details']['total_price']:.2f}.\nPlease make the payment using the given 💳 UPI id: 'museum@upi'\n\n"
+                                "🎟️ After completing the payment, please enter your UTR number below. 📧"
+                })
+
+        elif session['step'] == 'selecting_additional_service':
+            additional_services_map = {
+                '1': 'Wheelchair Assistance',
+                '0': 'No additional services'
+            }
+
+            additional_service = additional_services_map.get(user_response)
+            if not additional_service:
+                return jsonify({"response": "Please enter a valid number to select a service."})
+
+            if additional_service == 'Wheelchair Assistance':
+                if not session['details'].get('wheelchair'):
+                    session['details']['wheelchair'] = True
+                session['step'] = 'selecting_additional_service'
+                return jsonify({
+                    "response": "Wheelchair Assistance added. Would you like to add more services?\n\n"
+                                "1. Tour Guide\n\n"
+                                "Enter the number corresponding to your choice or 0 to skip."
+                })
+
+            elif additional_service == 'No additional services':
+                session['step'] = 'collecting_payment'
+                return jsonify({
+                    "response": f"🎟️ The total price is ₹ {session['details']['total_price']:.2f}.\nPlease make the payment using the given 💳 UPI id: 'museum@upi'\n\n"
+                                "🎟️ After completing the payment, please enter your UTR number below. 📧"
+                })
+
+        # Step 7: Collecting payment
         elif session['step'] == 'collecting_payment':
-            # Directly collect UTR number
             session['details']['utr_number'] = user_response
 
             # Retrieve details for booking
             booking_details = {
-                "booking_ref": "RANDOM123",  # In production, generate a unique reference
+                "booking_ref": generate_unique_order_id(),  # Use the unique ID as reference
                 "museum": session['details']['museum'],
                 "visit_date": session['details'].get('visit_date', 'Not specified'),
                 "visitors": [
@@ -301,21 +444,28 @@ def continue_booking():
                             "Children": session['details']['child_count'],
                             "Seniors": session['details']['senior_count'],
                             "Foreigners": session['details']['foreigner_count']
+                        },
+                        "additional_service": {
+                            "Wheelchair": session['details'].get('wheelchair', False),
+                            "Tour Guide": session['details'].get('tour_guide', False)
                         }
                     }
                 ],
                 "recipient_email": session['details']['email'],
-                "utr_number": session['details']['utr_number']  # Store UTR number
+                "utr_number": session['details']['utr_number']
             }
 
             # Generate ticket and send email
-            attachment_path = generate_ticket(booking_details)
-            send_email_with_pdf(
-                session['details']['email'],
-                "Your Museum Ticket",
-                f"Please find your museum ticket attached for {session['details']['museum']}. The total price is Rs {session['details']['total_price']:.2f}.",
-                attachment_path
-            )
+            try:
+                attachment_path = generate_ticket(booking_details)
+                send_email_with_pdf(
+                    session['details']['email'],
+                    "Your Museum Ticket",
+                    f"Please find your museum ticket attached for {session['details']['museum']}. The total price is Rs {session['details']['total_price']:.2f}.",
+                    attachment_path
+                )
+            except Exception as e:
+                return jsonify({"response": f"Error generating or sending ticket: {e}"})
 
             # Insert booking details into MongoDB with error handling
             try:
@@ -333,12 +483,24 @@ def continue_booking():
             except Exception as e:
                 print(f"[ERROR] Error inserting booking into MongoDB: {e}")
 
-            # Reset the session after booking is complete
+            # Reset booking session and switch back to normal chat mode
             del booking_sessions[session_id]
-            return jsonify({"response": f"Your tickets for {session['details']['museum']} have been booked for Rs {session['details']['total_price']:.2f} and sent to your email! Your UTR number is recorded."})
 
-    # Handle cases where there's no active booking session
-    return jsonify({"response": "It seems we're not in a booking session. Please start again."})
+            response_message = (
+                f"Your tickets for {session['details']['museum']} have been booked for Rs {session['details']['total_price']:.2f} "
+                "and sent to your email! Your UTR number is recorded. "
+                "You can now ask me about museum timings, ticket prices, or any other information!"
+            )
+            return jsonify({"response": response_message})
+
+    # Handle cases where there's no active booking session, switch to normal chat mode
+    return chat()
+
+# Helper function to generate unique order ID
+def generate_unique_order_id():
+    """Generate a unique order ID for snacks booking."""
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)  # Set a secret key for sessions

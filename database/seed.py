@@ -4,30 +4,24 @@ from pymongo import MongoClient
 # Connect to MongoDB
 client = MongoClient('mongodb://localhost:27017/')
 db = client['museum_ticket_bot']
-collection = db['bookings']
+shows_collection = db['shows']
 
-# Sample data
-sample_data = [
+# Sample show data
+sample_shows = [
     {
-        "booking_ref": "DEF456",
-        "visit_date": "2024-09-02",
-        "visitors": [
-            {"name": "Alice Smith", "ticket_number": "223456", "ticket_price": 15.00, "category": "Adult"},
-            {"name": "Bob Smith", "ticket_number": "223457", "ticket_price": 10.00, "category": "Child"}
-        ],
-        "recipient_email": "anilsehgal108@gmail.com"
+        "museum": "National Museum",
+        "show_name": "Ancient Artifacts Show",
+        "timings": ["10:00 AM", "12:00 PM", "3:00 PM", "5:00 PM"],
+        "duration": "1 hour"
     },
     {
-        "booking_ref": "GHI789",
-        "visit_date": "2024-09-03",
-        "visitors": [
-            {"name": "Charlie Brown", "ticket_number": "323456", "ticket_price": 20.00, "category": "Adult"},
-            {"name": "Lucy Brown", "ticket_number": "323457", "ticket_price": 20.00, "category": "Adult"}
-        ],
-        "recipient_email": "divyanshs1810@gmail.com"
+        "museum": "Rail Museum",
+        "show_name": "Vintage Train Tour",
+        "timings": ["9:30 AM", "11:30 AM", "2:30 PM", "4:30 PM"],
+        "duration": "1.5 hours"
     }
 ]
 
 # Insert sample data into MongoDB
-collection.insert_many(sample_data)
-print("Sample data inserted into MongoDB successfully.")
+shows_collection.insert_many(sample_shows)
+print("Sample show data inserted into MongoDB successfully.")

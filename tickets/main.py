@@ -17,7 +17,7 @@ def process_ticket(booking_details):
     send_email_with_pdf(booking_details["recipient_email"], subject, body, attachment_path)
 
 def fetch_and_process_bookings():
-    # Connect to MongoDB
+    # Connect to MongoDBa
     client = MongoClient('mongodb://localhost:27017/')
     db = client['museum_ticket_bot']
     collection = db['bookings']

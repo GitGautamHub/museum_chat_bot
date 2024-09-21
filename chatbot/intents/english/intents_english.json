@@ -1,0 +1,357 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "How are you?",
+        "Greetings",
+        "What’s up?",
+        "Welcome",
+        "Hey!",
+        "Good to see you!",
+        "How are you doing?",
+        "Good morning",
+        "Good evening",
+        "Good night",
+        "Good afternoon",
+        "Good day"
+      ],
+      "responses": [
+        "Hello! I’m Dwarpal, here to assist you with information about various museums in India and help you book tickets. How can I help you today?",
+        "Hi there! Are you ready to explore some amazing museums? Let me know how I can assist you!",
+        "Greetings! Dwarpal at your service. Do you need information or would you like to book a ticket? I’m here to help!",
+        "Hey! I’m Dwarpal, here to provide information about Indian museums and assist with ticket bookings. How can I help you?",
+        "Hello! I’m your museum guide. Please tell me how I can assist you!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you again",
+        "Thanks, bye",
+        "I’ll come back",
+        "Goodbye for now",
+        "Take care",
+        "Farewell"
+      ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you again! Have a wonderful time!",
+        "Take care! Hope to assist you again!",
+        "Goodbye! Looking forward to helping you again.",
+        "Goodbye! Have a good day.",
+        "Farewell! Stay safe!"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "Thank you so much",
+        "Many thanks",
+        "I appreciate it",
+        "You’ve been helpful",
+        "Thank you for your help"
+      ],
+      "responses": [
+        "You’re welcome!",
+        "Glad to help!",
+        "No problem! I’m always here to assist.",
+        "Happy to do something for you!",
+        "Glad to assist you.",
+        "I’m always here to help you!"
+      ]
+    },
+    {
+      "tag": "ask_museum_preference",
+      "patterns": [
+        "Tell me about museums",
+        "Which museum can I visit?",
+        "Museum details",
+        "Information about museums",
+        "List of museums",
+        "Recommend some museums",
+        "Where are museums in Bengal?",
+        "I need information about museums"
+      ],
+      "responses": [
+        "Would you like to know about museums in Delhi, Kolkata, Mumbai, or another city? Please mention the city name.",
+        "I can provide information about museums in various cities like Delhi, Kolkata, and Mumbai. Please let me know which city you’re interested in.",
+        "Which city’s museums would you like to explore? I can provide details about museums in Delhi, Kolkata, Mumbai, Hyderabad, and other cities.",
+        "Which city’s museums are you interested in? I can give you information about different museums in various cities.",
+        "If you tell me the city name, I can give you detailed information about the museums in that city."
+      ]
+    },
+    {
+      "tag": "museum_info_delhi",
+      "patterns": [
+        "Tell me about the National Museum in Delhi",
+        "Details about Delhi’s museums",
+        "National Museum information",
+        "Tell me about Delhi’s museums",
+        "What is the National Museum?",
+        "National Museum timings",
+        "Entry fee for Delhi’s National Museum",
+        "National Museum Delhi hours"
+      ],
+      "responses": [
+        "The National Museum, New Delhi, was established in May 1946 based on a design proposed by the Maurice Gwyer Committee. It houses over 200,000 artifacts, covering over five thousand years of Indian cultural heritage. It is open from Tuesday to Sunday, 10:00 AM to 6:00 PM. The entry fee is 20 INR for adults and free for children up to class 12.",
+        "The National Museum in Delhi is one of the largest museums in India, showcasing Indian cultural heritage and art. It is open from Tuesday to Sunday, 10:00 AM to 6:00 PM. The entry fee is 20 INR for adults.",
+        "The National Museum is located in Delhi and displays various aspects of Indian history. It is open from Tuesday to Sunday, and the entry fee is 20 INR for adults."
+      ]
+    },
+    {
+      "tag": "museum_info_kolkata",
+      "patterns": [
+        "Tell me about the Indian Museum in Kolkata",
+        "Details about Kolkata’s museums",
+        "Indian Museum information",
+        "Tell me about Kolkata’s museums",
+        "What is the Indian Museum?",
+        "Entry fee for Kolkata’s museum",
+        "Indian Museum timings",
+        "Indian Museum Kolkata hours"
+      ],
+      "responses": [
+        "The Indian Museum, Kolkata, was established in 1814 and is the oldest and largest multi-purpose museum in India. It houses rare artifacts, armor, fossils, and Mughal paintings. It is open from Tuesday to Sunday, 10:00 AM to 5:00 PM. The entry fee is 50 INR for adults and 20 INR for students.",
+        "The Indian Museum, Kolkata, is the oldest museum in India. It displays various natural and cultural artifacts. It is open from Tuesday to Sunday.",
+        "The Indian Museum is located in Kolkata and has a diverse collection of artifacts, coins, and paintings. The entry fee is 50 INR for adults and 20 INR for students."
+      ]
+    },
+    {
+      "tag": "museum_info_mumbai",
+      "patterns": [
+        "Tell me about Chhatrapati Shivaji Maharaj Vastu Sangrahalaya in Mumbai",
+        "Details about Mumbai’s museums",
+        "Information about Mumbai museums",
+        "What is Mumbai Museum?",
+        "Chhatrapati Shivaji Maharaj Museum",
+        "Tell me about Mumbai’s museums",
+        "Entry fee for Mumbai Museum",
+        "Mumbai Museum timings"
+      ],
+      "responses": [
+        "The Chhatrapati Shivaji Maharaj Vastu Sangrahalaya, formerly known as the Prince of Wales Museum, is located in Mumbai. It showcases Indian art, archaeology, and natural history, with a focus on Maharashtra’s history. The museum is open from Monday to Sunday, 10:15 AM to 6:00 PM. The entry fee is 85 INR for adults and 20 INR for children.",
+        "Chhatrapati Shivaji Maharaj Museum, located in Mumbai, exhibits various archaeological and artistic collections. It is open from Monday to Sunday, 10:15 AM to 6:00 PM. The entry fee is 85 INR for adults.",
+        "The Chhatrapati Shivaji Maharaj Vastu Sangrahalaya in Mumbai is a unique collection of Indian art and natural history. The entry fee is 85 INR for adults and 20 INR for children."
+      ]
+    },
+    {
+      "tag": "museum_info_jaipur",
+      "patterns": [
+        "Tell me about Albert Hall Museum in Jaipur",
+        "Details about Jaipur’s museums",
+        "Information about Jaipur museums",
+        "What is Albert Hall Museum?",
+        "Jaipur Museum timings",
+        "Entry fee for Albert Hall Museum",
+        "Tell me about Jaipur’s museums"
+      ],
+      "responses": [
+        "The Albert Hall Museum, Jaipur, is known for its Indo-Saracenic architecture and extensive collection. It is open daily from 9:00 AM to 5:00 PM and 7:00 PM to 10:00 PM. The entry fee is 40 INR for adults and 20 INR for students.",
+        "Jaipur’s Albert Hall Museum is known for its architecture and historical collections. It is open daily, and the entry fee is 40 INR for adults.",
+        "The Albert Hall Museum, Jaipur, displays traditional Indian art and crafts. It is open daily from 9:00 AM to 5:00 PM. The entry fee is 40 INR for adults."
+      ]
+    },
+    {
+      "tag": "museum_info_hyderabad",
+      "patterns": [
+        "Tell me about Salar Jung Museum in Hyderabad",
+        "Details about Hyderabad’s museums",
+        "Information about Hyderabad museums",
+        "What is Salar Jung Museum?",
+        "Hyderabad Museum timings",
+        "Entry fee for Salar Jung Museum",
+        "Tell me about Hyderabad museums"
+      ],
+      "responses": [
+        "The Salar Jung Museum, Hyderabad, features rare art and collections from various civilizations around the world. It is closed on Fridays and open from 10:00 AM to 5:00 PM on other days. The entry fee is 20 INR for adults and 15 INR for children.",
+        "The Salar Jung Museum in Hyderabad is one of the most famous museums in the city. It is open from 10:00 AM to 5:00 PM daily, except on Fridays. The entry fee is 20 INR for adults.",
+        "The Salar Jung Museum, Hyderabad, displays an outstanding collection from various world civilizations. The entry fee is 20 INR for adults and 15 INR for children."
+      ]
+    },
+    {
+      "tag": "museum_info_bengaluru",
+      "patterns": [
+        "Tell me about Visvesvaraya Industrial and Technological Museum in Bengaluru",
+        "Details about Bengaluru’s museums",
+        "Information about Bengaluru museums",
+        "What is Visvesvaraya Museum?",
+        "Bengaluru Museum timings",
+        "Entry fee for Visvesvaraya Museum",
+        "Details about Bengaluru Museum"
+      ],
+      "responses": [
+        "The Visvesvaraya Industrial and Technological Museum, Bengaluru, showcases achievements in science and technology. It is open from Monday to Sunday, 9:30 AM to 6:00 PM. The entry fee is 60 INR for adults and 30 INR for children.",
+        "The Visvesvaraya Industrial and Technological Museum, Bengaluru, displays various aspects of technology and industry. The entry fee is 60 INR for adults and 30 INR for children.",
+        "Bengaluru’s Visvesvaraya Museum highlights various innovations and history in science and technology. It is open daily from 9:30 AM to 6:00 PM."
+      ]
+    },
+    {
+      "tag": "museum_info_chennai",
+      "patterns": [
+        "Tell me about Government Museum in Chennai",
+        "Details about Chennai’s museums",
+        "Information about Chennai museums",
+        "What is Government Museum?",
+        "Chennai Museum timings",
+        "Entry fee for Government Museum",
+        "Information about Chennai’s museum"
+      ],
+      "responses": [
+        "The Government Museum, Chennai, is known for its rich collection of antiquities and numismatics. It is closed on Fridays and open from 9:30 AM to 5:00 PM on other days. The entry fee is 15 INR for adults and 10 INR for children.",
+        "Chennai’s Government Museum is famous for its art and archaeology. The entry fee is 15 INR for adults and 10 INR for children. It is open on all days except Friday.",
+        "The Government Museum, Chennai, is known for its rich collection of coins and antiquities. It is closed on Fridays and open from 9:30 AM to 5:00 PM on other days."
+      ]
+    },
+    {
+      "tag": "book_ticket",
+      "patterns": [
+        "I want to book a ticket",
+        "Book a ticket",
+        "How to book a ticket?",
+        "Ticket booking",
+        "How to get a ticket?",
+        "How to order a ticket?",
+        "I need a ticket",
+        "I want to book a museum ticket"
+      ],
+      "responses": [
+        "You can book tickets for various museums online through our platform. Please specify the city and museum name to proceed with the booking.",
+        "Please mention the city and museum name. I’ll start the ticket booking for you.",
+        "To book your museum tickets, please provide the city and museum name.",
+        "If you want to book a ticket, please mention the city name and I will proceed with the arrangements."
+      ]
+    },
+    {
+      "tag": "ticket_price",
+      "patterns": [
+        "What’s the ticket price?",
+        "How much is the ticket?",
+        "What’s the entry fee?",
+        "How much does a ticket cost?",
+        "Ticket fee?",
+        "What’s the price of a museum ticket?",
+        "What’s the ticket charge?"
+      ],
+      "responses": [
+        "The ticket price varies depending on the museum. Please provide the museum name so that we can give you detailed pricing information.",
+        "Museum ticket prices can vary. Please mention the museum name and I’ll provide you with the exact information.",
+        "Tell me the museum name so that I can provide you with detailed information about the ticket price."
+      ]
+    },
+    {
+      "tag": "museum_location",
+      "patterns": [
+        "Where is the museum?",
+        "Tell me the museum address",
+        "Where is the museum located?",
+        "How do I get to the museum?",
+        "Tell me the location of the museum",
+        "Museum directions",
+        "Is the museum nearby?",
+        "Where is the museum located?"
+      ],
+      "responses": [
+        "The location of the museum depends on the city and the museum. Please mention the museum name so that we can provide you with the exact address and directions.",
+        "Which museum would you like to know about? I can give you the exact address and directions for that museum.",
+        "Please mention the museum name and I will provide you with the exact address and directions."
+      ]
+    },
+    {
+      "tag": "museum_timings",
+      "patterns": [
+        "What are the museum timings?",
+        "When is the museum open?",
+        "Museum opening hours",
+        "When does the museum close?",
+        "Museum schedule",
+        "What are the opening hours of the museum?",
+        "What are the museum timings?"
+      ],
+      "responses": [
+        "The timings may vary for each museum. Please mention the museum name so that we can provide you with the exact timings.",
+        "The opening hours can vary for different museums. Tell me the museum name and I’ll provide you with the correct timings.",
+        "Tell me the museum name and I can provide you with the exact schedule."
+      ]
+    },
+    {
+      "tag": "snacks_booking",
+      "patterns": [
+        "Can I book snacks?",
+        "Is food available?",
+        "What snacks are available?",
+        "Book snacks",
+        "How to book snacks?",
+        "Can I order snacks?",
+        "Is there food available at the museum?"
+      ],
+      "responses": [
+        "Yes, you can pre-book snacks for your museum visit. Please mention the museum name and we’ll let you know the available options.",
+        "If you’d like to book snacks at the museum, please provide the museum name. I’ll tell you the available snack options.",
+        "To start booking snacks for the museum, please mention the museum name."
+      ]
+    },
+    {
+      "tag": "show_booking",
+      "patterns": [
+        "Is there a show?",
+        "Can I book a show?",
+        "What shows are available?",
+        "Book a show",
+        "How to book a show?",
+        "Museum show booking",
+        "Are there shows at the museum?"
+      ],
+      "responses": [
+        "Many museums offer internal shows or guided tours. Please mention the museum name and we’ll provide you with the available options and booking information.",
+        "If you’d like to book a show at the museum, please provide the museum name. I’ll let you know the available shows and their schedule.",
+        "Please mention the museum name and I’ll provide you with information about the shows available at that museum."
+      ]
+    },
+    {
+      "tag": "feedback",
+      "patterns": [
+        "I have some feedback",
+        "Can I give feedback?",
+        "I want to provide feedback",
+        "Feedback",
+        "I have feedback",
+        "I want to give my opinion",
+        "I’d like to give feedback",
+        "I want to give you feedback"
+      ],
+      "responses": [
+        "We’d love to hear your feedback! Please share your thoughts and we’ll pass them on to the relevant team.",
+        "If you’d like to provide feedback, please go ahead. We’d love to hear your thoughts.",
+        "Your feedback is important to us! Please share your feedback.",
+        "If you’d like to share your thoughts, please go ahead. We’re eager to listen."
+      ]
+    },
+    {
+      "tag": "unrecognized_query",
+      "patterns": [
+        "What’s the weather like?",
+        "Can you help me with something else?",
+        "Tell me about sports",
+        "Who is the President of India?",
+        "Recommend a movie",
+        "What’s the latest news?",
+        "Give me sports updates",
+        "Tell me about politics"
+      ],
+      "responses": [
+        "Sorry, I can’t help with that. I’m here to assist with museum-related information and ticket bookings. Please ask something related to that!",
+        "Sorry, but I can only provide information about museums and tickets. Let me know how I can assist you!",
+        "My expertise is limited to museums and ticket bookings. If you have any questions related to museums or bookings, please feel free to ask!",
+        "I can only provide information related to museums and tickets. Please ask something about museums or tickets."
+      ]
+    }
+  ]
+}

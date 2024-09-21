@@ -94,11 +94,30 @@ def generate_ticket(booking_details):
     barcode_file = generate_barcode(booking_details["booking_ref"])
     if barcode_file and os.path.exists(barcode_file):
         pdf.image(barcode_file, x=15, y=y_position, w=50)  # Positioned below ticket info
-    else:
-        print("Failed to generate barcode, skipping barcode image.")
+        y_position += 40  # Move down to make space for barcode
+
+    # Display additional services (if any)
+    services = booking_details['visitors'][0].get('additional_service', {})
+    if services:
+        pdf.set_xy(15, y_position)
+        pdf.set_font('Arial', 'B', 12)  # Make it bold for visibility
+        pdf.cell(0, 10, 'Additional Services:', ln=True)
+        y_position += 10
+
+        # List additional services
+        if services.get('Wheelchair'):
+            pdf.set_xy(20, y_position)
+            pdf.set_font('Arial', '', 12)  # Normal font for services
+            pdf.cell(0, 10, '- Wheelchair Assistance', ln=True)
+            y_position += 10
+        if services.get('Tour Guide'):
+            pdf.set_xy(20, y_position)
+            pdf.set_font('Arial', '', 12)  # Normal font for services
+            pdf.cell(0, 10, '- Tour Guide', ln=True)
+            y_position += 10
 
     # Add a thank you note or branding
-    pdf.set_xy(15, y_position + 50)
+    pdf.set_xy(15, y_position + 20)  # Adjusted for spacing
     pdf.set_font('Arial', 'B', 10)  # Made bold for better visibility
     pdf.set_text_color(34, 49, 63)  # Matching dark blue
     pdf.cell(0, 10, f'Thank you for visiting {booking_details["museum"]}! Enjoy your tour.', ln=True, align='C')
@@ -114,17 +133,21 @@ def generate_ticket(booking_details):
     print(f"Ticket saved as {file_name}")
     return file_name
 
-# Example booking details including Foreigners
+# Example Usage
 booking_details = {
     "booking_ref": "347652199854",
     "visit_date": "2024-09-03",
-    "museum": "Victoria Memorial",  # Example museum name
+    "museum": "Victoria Memorial",
     "visitors": [
         {
             "name": "Gautam Kumar",
             "ticket_number": "123456",
             "ticket_price": 47.00,
-            "category": {"Adults": 1, "Children": 2, "Seniors": 1, "Foreigners": 1}
+            "category": {"Adults": 1, "Children": 2, "Seniors": 1, "Foreigners": 1},
+            "additional_service": {
+                "Wheelchair": True,
+                "Tour Guide": True
+            }
         }
     ]
 }

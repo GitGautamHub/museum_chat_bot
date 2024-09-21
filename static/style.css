@@ -180,11 +180,10 @@ body {
 }
 
 
-
 /* Chat Container */
 .chat-container {
-    width: 450px;
-    height: 650px;
+    width: 500px; /* Increased width */
+    height: 700px; /* Increased height */
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 50px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -195,7 +194,7 @@ body {
     border: 3px solid #d4af37;
     padding: 10px;
     position: fixed;
-    bottom: 80px;
+    bottom: 50px; /* Adjusted placement */
     right: 20px;
     z-index: 1000;
 }
@@ -227,8 +226,8 @@ body {
     border-bottom-right-radius: 40px;
     scrollbar-width: thin;
     scrollbar-color: #d4af37 #eef1f7;
-    max-height: 380px; /* Adjusted height to prevent overlap */
-    margin-bottom: 60px; /* Ensures space for button */
+    max-height: 500px; /* Increased max height */
+    margin-bottom: 70px; /* Ensures space for button */
 }
 
 /* For Chrome, Edge, and Safari */
@@ -336,7 +335,7 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     position: absolute; /* Changed to absolute positioning */
-    bottom: 60px; /* Corrected placement to be above input */
+    bottom: 70px; /* Corrected placement to be above input */
     left: 20px; /* Ensure it stays within the chat container */
     width: calc(100% - 40px); /* Adjust width to fit nicely */
     z-index: 3; /* Keep button on top */
@@ -347,6 +346,7 @@ body {
     transform: scale(1.05);
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
+
 
 /* Footer styling */
 .footer {
