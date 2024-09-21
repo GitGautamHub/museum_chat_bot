@@ -1,16 +1,21 @@
-# MuseumSEVA: Dwarpal - Your Gateway to India's Museums
+# **MuseumSEVA: Dwarpal - Your Gateway to India's Museums**
 
 Dwarpal is a virtual assistant designed to help users explore and book tickets for museums across India. This application uses a chatbot interface built with Flask, integrated with a machine learning model for natural language processing and ticket generation features using FPDF and barcode libraries.
 
-## Features
+![Chatbot Interface](static/images/img11.png)
 
-- Chatbot interface for museum information and ticket booking.
-- Multi-language support with intent recognition for both English and Hindi.
-- Dynamic ticket generation in PDF format with barcodes.
-- Seamless email integration to send tickets directly to users.
-- MongoDB for managing bookings and user data.
+## **Features**
 
-## Tech Stack
+- 🏛 **Seamless Ticket Booking**: Book tickets for museums in any state from home.
+- 🎟 **Comprehensive Facilities**: Book internal shows with time slots, access museum maps, and additional features all through one chatbot.
+- 🥤 **Innovative Snack Booking**: Order snacks from the museum cafeteria using a unique user ID, avoiding queues and enhancing the customer experience.
+- 📣 **Targeted Marketing & Promotion**: Collect user details like phone number and email address. Auto-generate ads for museums based on user interests.
+- 🦽 **Accessibility**: Book tour guides and wheelchair facilities (if available) based on the museum's offerings.
+- 👥 **Crowd Density Monitoring**: Get real-time suggestions on less crowded days to plan your visit efficiently.
+
+![Snacks Booking](static/images/img22.png) ![Additional Facilities](static/images/img3.png)
+
+## **Tech Stack**
 
 - **Backend**: Python, Flask
 - **ML & NLP**: TensorFlow, NLTK, Scikit-learn
@@ -19,17 +24,17 @@ Dwarpal is a virtual assistant designed to help users explore and book tickets f
 - **Email Service**: Yagmail (SMTP with Gmail)
 - **Web Server**: Gunicorn for production
 
-## Prerequisites
+## **Prerequisites**
 
 - **Python 3.12** installed on your system.
 - **MongoDB** running locally or accessible via a connection URI.
 - **Gmail Account** with app-specific password enabled (for sending emails).
 
-## Getting Started
+## **Getting Started**
 
 Follow these steps to set up and run the project on your local machine.
 
-### 1. Clone the Repository
+### **1. Clone the Repository**
 
 ```bash
 git clone <repository_url>
